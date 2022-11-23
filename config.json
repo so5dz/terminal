@@ -1,0 +1,14 @@
+{
+    "connections": {
+        "modem": {
+            "host": "localhost",
+            "dataPort": 8633,
+            "extraPort": 8634
+        },
+        "control": {
+            "enabled": false,
+            "host": "localhost",
+            "port": 8622
+        }
+    }
+}
