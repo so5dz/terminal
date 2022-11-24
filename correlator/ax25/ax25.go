@@ -20,7 +20,9 @@ func (cor *AX25Correlator) Initialize() {
 	cor.packetPrototype.clear()
 }
 
-func (cor *AX25Correlator) RX(b byte) {
+func (cor *AX25Correlator) RX(b byte) []byte {
+	packet := []byte{}
+
 	b = bitrev(b)
 	cor.stateBytesCounter++
 
@@ -55,12 +57,15 @@ func (cor *AX25Correlator) RX(b byte) {
 			validPacket := cor.packetPrototype.isValid()
 			if validPacket {
 				cor.packetPrototype.print()
+				packet = cor.packetPrototype.packet()
 			}
 			cor.packetPrototype.clear()
 		} else {
 			cor.packetPrototype.appendData(b)
 		}
 	}
+
+	return packet
 }
 
 func bitrev(n byte) byte {

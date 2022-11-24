@@ -58,10 +58,18 @@ func (pp *packetPrototype) isValid() bool {
 }
 
 func (pp *packetPrototype) print() {
-
 	h := make([]byte, len(pp.header))
 	for i, b := range pp.header {
 		h[i] = b >> 1
 	}
 	log.Println(pp.control, pp.protocol, string(h), string(pp.information))
+}
+
+func (pp *packetPrototype) packet() []byte {
+	packet := make([]byte, len(pp.header)+2+len(pp.information))
+	copy(packet, pp.header)
+	packet[len(pp.header)] = pp.control
+	packet[len(pp.header)+1] = pp.protocol
+	copy(packet[len(pp.header)+2:], pp.information)
+	return packet
 }

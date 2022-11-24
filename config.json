@@ -1,4 +1,5 @@
 {
+    "kissPort": 8001,
     "connections": {
         "modem": {
             "host": "localhost",

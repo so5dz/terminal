@@ -1,6 +1,7 @@
 package config
 
 type Config struct {
+	KissPort    int         `json:"kissPort"`
 	Connections Connections `json:"connections"`
 }
 
