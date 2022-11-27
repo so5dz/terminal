@@ -3,13 +3,14 @@ package app
 import (
 	"log"
 
-	"github.com/so5dz/network/tcp"
+	tcpc "github.com/so5dz/network/client/tcp"
+	tcps "github.com/so5dz/network/server/tcp"
 	"github.com/so5dz/terminal/correlator"
 )
 
 type TerminalApplication struct {
-	dataClient tcp.Client
-	kissServer tcp.Server
+	dataClient tcpc.StreamClient
+	kissServer tcps.StreamServer
 	correlator correlator.Correlator
 }
 

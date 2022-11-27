@@ -3,7 +3,7 @@ package app
 import (
 	"log"
 
-	"github.com/so5dz/network/tcp"
+	"github.com/so5dz/network/server"
 	"github.com/so5dz/terminal/kiss"
 )
 
@@ -17,6 +17,6 @@ func (app *TerminalApplication) onDataReceived(data []byte) {
 	}
 }
 
-func (app *TerminalApplication) onKissReceived(remote tcp.Remote, data []byte) {
+func (app *TerminalApplication) onKissReceived(remote server.Remote, data []byte) {
 	log.Println(len(data))
 }

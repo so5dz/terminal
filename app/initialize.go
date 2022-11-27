@@ -4,7 +4,6 @@ import (
 	"log"
 	"strings"
 
-	"github.com/so5dz/network/tcp"
 	"github.com/so5dz/terminal/config"
 	"github.com/so5dz/terminal/correlator/ax25"
 	"github.com/so5dz/utils/misc"
@@ -18,13 +17,13 @@ func (app *TerminalApplication) Initialize(cfg config.Config) error {
 
 func (app *TerminalApplication) initializeDataClient(cfg config.Config) {
 	log.Println("Initializing modem data client")
-	app.dataClient = tcp.NewClient(cfg.Connections.Modem.Host, cfg.Connections.Modem.DataPort, tcp.TCPConnectionMode_Stream)
+	app.dataClient.Initialize(cfg.Connections.Modem.Host, cfg.Connections.Modem.DataPort)
 	app.dataClient.OnReceive(app.onDataReceived)
 }
 
 func (app *TerminalApplication) initializeKissServer(cfg config.Config) {
 	log.Println("Initializing KISS server")
-	app.kissServer = tcp.NewServer(cfg.KissPort, tcp.TCPConnectionMode_Stream)
+	app.kissServer.Initialize(cfg.KissPort)
 	app.kissServer.OnReceive(app.onKissReceived)
 }
 
