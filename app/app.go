@@ -6,7 +6,11 @@ import (
 	tcpc "github.com/so5dz/network/client/tcp"
 	tcps "github.com/so5dz/network/server/tcp"
 	"github.com/so5dz/terminal/correlator"
+	"github.com/so5dz/utils/misc"
 )
+
+const _DataClientConnectError = "unable to connect to data server"
+const _KISSServerStartError = "unable to start KISS server"
 
 type TerminalApplication struct {
 	dataClient tcpc.StreamClient
@@ -18,13 +22,13 @@ func (app *TerminalApplication) Run() error {
 	log.Println("Connecting to data server")
 	err := app.dataClient.Connect()
 	if err != nil {
-		return err
+		return misc.WrapError(_DataClientConnectError, err)
 	}
 
 	log.Println("Starting KISS server")
 	err = app.kissServer.Start()
 	if err != nil {
-		return err
+		return misc.WrapError(_KISSServerStartError, err)
 	}
 
 	log.Println("MARDES-terminal started, interrupt to close")
