@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/iskrapw/terminal/app"
-	terminalconfig "github.com/iskrapw/terminal/config"
-	"github.com/iskrapw/utils/config"
-	"github.com/iskrapw/utils/misc"
+	"github.com/so5dz/terminal/app"
+	terminalconfig "github.com/so5dz/terminal/config"
+	"github.com/so5dz/utils/config"
+	"github.com/so5dz/utils/misc"
 )
 
 func main() {

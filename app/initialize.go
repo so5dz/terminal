@@ -2,16 +2,18 @@ package app
 
 import (
 	"log"
+	"strings"
 
-	"github.com/iskrapw/network/tcp"
-	"github.com/iskrapw/terminal/config"
+	"github.com/so5dz/network/tcp"
+	"github.com/so5dz/terminal/config"
+	"github.com/so5dz/terminal/correlator/ax25"
+	"github.com/so5dz/utils/misc"
 )
 
 func (app *TerminalApplication) Initialize(cfg config.Config) error {
-	app.correlator.Initialize() // todo
 	app.initializeDataClient(cfg)
 	app.initializeKissServer(cfg)
-	return nil
+	return app.initializeCorrelator(cfg)
 }
 
 func (app *TerminalApplication) initializeDataClient(cfg config.Config) {
@@ -24,4 +26,16 @@ func (app *TerminalApplication) initializeKissServer(cfg config.Config) {
 	log.Println("Initializing KISS server")
 	app.kissServer = tcp.NewServer(cfg.KissPort, tcp.TCPConnectionMode_Stream)
 	app.kissServer.OnReceive(app.onKissReceived)
+}
+
+func (app *TerminalApplication) initializeCorrelator(cfg config.Config) error {
+	log.Println("Initializing correlator")
+	correlatorName := strings.ToUpper(cfg.Correlator)
+	switch correlatorName {
+	case "AX25":
+		app.correlator = &ax25.AX25Correlator{}
+		app.correlator.Initialize()
+		return nil
+	}
+	return misc.NewError("unknown correlator", correlatorName)
 }

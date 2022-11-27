@@ -1,5 +1,6 @@
 {
     "kissPort": 8001,
+    "correlator": "ax25",
     "connections": {
         "modem": {
             "host": "localhost",

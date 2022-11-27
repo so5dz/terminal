@@ -3,14 +3,14 @@ package app
 import (
 	"log"
 
-	"github.com/iskrapw/network/tcp"
-	"github.com/iskrapw/terminal/correlator/ax25"
+	"github.com/so5dz/network/tcp"
+	"github.com/so5dz/terminal/correlator"
 )
 
 type TerminalApplication struct {
 	dataClient tcp.Client
 	kissServer tcp.Server
-	correlator ax25.AX25Correlator // todo variability
+	correlator correlator.Correlator
 }
 
 func (app *TerminalApplication) Run() error {

@@ -20,7 +20,7 @@ func (cor *AX25Correlator) Initialize() {
 	cor.packetPrototype.clear()
 }
 
-func (cor *AX25Correlator) RX(b byte) []byte {
+func (cor *AX25Correlator) Feed(b byte) []byte {
 	packet := []byte{}
 
 	b = bitrev(b)

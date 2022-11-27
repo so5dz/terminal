@@ -3,15 +3,16 @@ package app
 import (
 	"log"
 
-	"github.com/iskrapw/network/tcp"
-	"github.com/iskrapw/terminal/kiss"
+	"github.com/so5dz/network/tcp"
+	"github.com/so5dz/terminal/kiss"
 )
 
 func (app *TerminalApplication) onDataReceived(data []byte) {
 	for _, b := range data {
-		packet := app.correlator.RX(b)
+		packet := app.correlator.Feed(b)
 		if len(packet) > 0 {
-			app.kissServer.Broadcast(kiss.Encode(0, kiss.DataFrame, packet))
+			kissEncodedPacket := kiss.Encode(0, kiss.DataFrame, packet)
+			app.kissServer.Broadcast(kissEncodedPacket)
 		}
 	}
 }
